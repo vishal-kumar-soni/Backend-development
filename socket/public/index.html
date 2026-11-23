@@ -11,8 +11,12 @@
         <form action="">
             <label for="">Message</label>
             <input type="text" name="" id="">
-            <button>Send</button>
+            <button id="send-btn">Send</button>
+            <button id="toggle-btn">Disconnect</button>
         </form>
+
+        <ul id="messages">
+        </ul>
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
@@ -20,13 +24,31 @@
         const socket = io();
 
         const input = document.querySelector('input');
-        const btn = document.querySelector('button');
+        const btn = document.querySelector('#send-btn');
+        const toggleBtn = document.querySelector('#toggle-btn');
 
         btn.addEventListener('click', (e) => {
            e.preventDefault();
-           socket.emit('message', input.value.trim()); // emit() is used when message is send from client to server , also used in server side when msg is send from server to client
+           socket.emit('message', input.value.trim()); // emit() is used when message is send from client to server , also used in server side when msg is send from server to client. It has two values key and value.
            input.value = ''; 
+        });
+
+        toggleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if(socket.connected) {
+                toggleBtn.innerText = 'Connect';
+                socket.disconnect();
+            }else{
+                toggleBtn.innerText = 'Disconnect';
+                socket.connect();
+            }
         }) 
+
+        socket.on('message', (msg) => {
+            const li = document.createElement('li');
+            li.innerText = msg;
+            document.querySelector('#messages').appendChild(li);
+        });
     </script>
 </body>
 </html>

@@ -14,15 +14,11 @@ app.get('/',(req, res)=>{
 
 io.on('connection', (socket)=>{ // socket = client who wants to connect with server. When this request comes in the server , the connection between client and server is authomatically established.
     console.log(`A new user connected ${socket.id}`); // This is the id of client who wants to connect with server.
-    // socket.on('disconnect', ()=>{
-    //     console.log('user disconnected');
-    // })
-    // socket.on('chat message', (msg)=>{
-    //     console.log('message: ' + msg);
-    //     io.emit('chat message', msg);
-    // })
-    // socket.on('typing', (msg)=>{
-    //     console.log('typing: ' + msg);
+
+    socket.on('message', (msg)=>{
+        console.log('message: ' + msg);
+        io.emit('message', msg);
+    })
 })
 
 server.listen(3000, ()=>{
