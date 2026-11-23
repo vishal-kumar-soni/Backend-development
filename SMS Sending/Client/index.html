@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>SMS Page</h2>
+
+        <form action="http://localhost:3000/send-sms" method="POST">
+            <label for="number">Number</label>
+            <input
+                type="text"
+                id="number"
+                name="number"
+                placeholder="Enter your number"
+                required
+            >
+
+            <label for="message">Message</label>
+            <select name="message" id="message" required>
+                <option value="sms_2fa">sms_2fa</option>
+                <option value="sms_account_alerts">sms_account_alerts</option>
+                <option value="sms_appointment_reminders" selected>sms_appointment_reminders</option>
+                <option value="sms_feedback_surveys">sms_feedback_surveys</option>
+            </select>
+
+            <button type="submit" id="submit">Submit</button>
+        </form>
+    </div>
+
+</body>
+</html>
+
+<!-- Only these 4 messages can be sent in SMS using twilio free account -->
+<!-- 
+    1. sms_2fa – Two-factor authentication messages.
+    2. sms_account_alerts – Account-related notifications.
+    3. sms_appointment_reminders – Appointment reminders.
+    4. sms_feedback_surveys – Feedback and survey messages.
+ -->
